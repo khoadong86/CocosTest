@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "house_1",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.23333333333333334,
+  "sample": 30,
+  "speed": 0.2,
+  "wrapMode": "2",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0.03333333333333333,
+            "value": {
+              "__uuid__": "d67c9014-f1f5-4302-8355-28dcc463a12b"
+            }
+          },
+          {
+            "frame": 0.06666666666666667,
+            "value": {
+              "__uuid__": "6fcba1a2-b4a1-4cf6-a1b1-7da9d8cf59d9"
+            }
+          },
+          {
+            "frame": 0.1,
+            "value": {
+              "__uuid__": "76df861c-ccf3-457e-bb61-8697e01415db"
+            }
+          },
+          {
+            "frame": 0.13333333333333333,
+            "value": {
+              "__uuid__": "dd6252b7-bb4f-4f12-8c33-453897e16292"
+            }
+          },
+          {
+            "frame": 0.16666666666666666,
+            "value": {
+              "__uuid__": "4c8bc431-4cfb-48a2-8323-683fef969196"
+            }
+          },
+          {
+            "frame": 0.2,
+            "value": {
+              "__uuid__": "a5712575-c649-4e3f-81b7-6b53fd4024b8"
+            }
+          }
+        ]
+      }
+    }
+  },
+  "events": []
+}

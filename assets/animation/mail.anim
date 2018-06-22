@@ -1,0 +1,55 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "mail",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 1.0333333333333334,
+  "sample": 30,
+  "speed": 1,
+  "wrapMode": "22",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "1a68baf4-0028-413f-a1d1-3b07ea56ee4c"
+            }
+          },
+          {
+            "frame": 0.5,
+            "value": {
+              "__uuid__": "ac984635-666d-493f-a302-c66705adc372"
+            }
+          },
+          {
+            "frame": 1,
+            "value": {
+              "__uuid__": "ac984635-666d-493f-a302-c66705adc372"
+            }
+          }
+        ]
+      }
+    },
+    "props": {
+      "position": [
+        {
+          "frame": 0,
+          "value": [
+            341,
+            -181
+          ]
+        },
+        {
+          "frame": 1,
+          "value": [
+            -346,
+            -181
+          ]
+        }
+      ]
+    }
+  },
+  "events": []
+}

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "56980fd2-dac1-4707-aa8d-1814782c07a6",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "mailbox_atlas": {
+      "ver": "1.0.3",
+      "uuid": "0c49d45a-7939-439d-b0ef-8c368cd97518",
+      "rawTextureUuid": "56980fd2-dac1-4707-aa8d-1814782c07a6",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 88,
+      "height": 93,
+      "rawWidth": 88,
+      "rawHeight": 93,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

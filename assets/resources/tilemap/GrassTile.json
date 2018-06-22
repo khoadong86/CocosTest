@@ -1,0 +1,12 @@
+{ "columns":3,
+ "image":"..\/..\/..\/..\/..\/WhatsProj\/FB_Instant_Games\/FriendlyGarden\/FriendlyGarden\/assets\/textures\/tilesets\/tileset.png",
+ "imageheight":576,
+ "imagewidth":216,
+ "margin":0,
+ "name":"Grass",
+ "spacing":0,
+ "tilecount":48,
+ "tileheight":36,
+ "tilewidth":72,
+ "type":"tileset"
+}
