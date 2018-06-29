@@ -1,16 +1,6 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 const Buildings = require("Buildings");
-
-cc.Class({
+var UIManager = require("UIManager");
+var Game = cc.Class({
 
     extends: cc.Component,
 
@@ -20,9 +10,15 @@ cc.Class({
         InitNode: cc.Node,
     },
 
-    // LIFE-CYCLE CALLBACKS:
+    statics:
+    {
+        instance: null
+    },
 
     onLoad () {
+
+        Game.instance = this;
+
         if (!LoadedResource)
         {
             ObjectSpawner.InitPools(this.GameInit.bind(this));
@@ -40,8 +36,14 @@ cc.Class({
 
     GameInit()
     {
-        this.InitMap(Buildings);
+        this.Map = new cc.Node();
+        this.Map.addComponent("Map");
+        this.Map.getComponent("Map").InitMap(Buildings);
+        this.Map.parent = this.node;
+        this.Map.setSiblingIndex(0);
         this.InitInput();
+        this.InitPhysic();
+        this.InitManager();
     },
 
     InitInput()
@@ -53,13 +55,14 @@ cc.Class({
 
         cc.eventManager.addListener({
             event: cc.EventListener.TOUCH_ALL_AT_ONCE,
-            swallowTouches: false,
+            swallowTouches: true,
 
             onTouchesBegan: function(touches, event) {
                 if (touches.length > 1)
                 {
                     self.distanceBegin = Math.sqrt(Math.pow(touches[0]._point.x - touches[1]._point.x, 2) + Math.pow(touches[0]._point.y - touches[1]._point.y, 2));
                 }
+                UIManager.instance.HideMenu("ProductBuilding");
                 return true;
             },
             
@@ -93,43 +96,20 @@ cc.Class({
             onTouchesEnded: function(touches, event){
                 self.distanceBegin = 0;
                 self.distanceEnd = 0;
-                let touchPos = touches[0].getLocation();
-                let newParticle = ObjectSpawner.Spawn("firetouch", (obj) => {
-                    ///*
-                    obj.getComponent(cc.ParticleSystem).onDestroy = () => {
-                        console.log("on Destroy particle ");
-                        //ObjectSpawner.Return("firetouch", newParticle);
-                    }
-                    //*/
-                   obj.setPosition(touchPos.x, touchPos.y);
-                   obj.parent = self.node;
-
-                });
-
-                var object = ObjectSpawner.Spawn("house_1", (obj) => {
-                    obj.setPosition(touchPos.x, touchPos.y);
-                    obj.parent = self.node;
-                });
-
-
-                return true;
-            },
+            }
         }, self.node);
     },
 
-    InitMap(data)
-    {
-        Object.keys(data).forEach(function(building){
-            if (ObjectSpawner.IsContain(building))
-            {
-                var obj = ObjectSpawner.Spawn(building);
-                obj.parent = this.node;
-            }
-            else
-            {
-                console.log("Error: can't find building " + building);
-            }
-        }.bind(this));
-    }
     
+    InitPhysic()
+    {
+        var manager = cc.director.getCollisionManager();
+        manager.enabled = true;
+        manager.enableDebugDraw = true;
+    },
+
+    InitManager()
+    {
+        cc.eventManager.setEnabled(true);
+    }
 });

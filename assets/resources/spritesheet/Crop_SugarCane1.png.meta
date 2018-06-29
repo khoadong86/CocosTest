@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "0416f33d-a5ad-49a0-b6cd-0f6700bab934",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "Crop_SugarCane1": {
+      "ver": "1.0.3",
+      "uuid": "ec58c6fd-2b3c-4db7-adb2-952b83023102",
+      "rawTextureUuid": "0416f33d-a5ad-49a0-b6cd-0f6700bab934",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 2.5,
+      "offsetY": -1.5,
+      "trimX": 5,
+      "trimY": 5,
+      "width": 148,
+      "height": 125,
+      "rawWidth": 153,
+      "rawHeight": 132,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

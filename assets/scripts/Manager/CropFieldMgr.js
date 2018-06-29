@@ -1,13 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 cc.Class({
     extends: cc.Component,
 
@@ -19,6 +9,7 @@ cc.Class({
 
     // onLoad () {},
     init() {
+        /*
         this.offsetDirectionR = new cc.Vec2(
             this.dummyField[1].position.x - this.dummyField[0].position.x,
             this.dummyField[1].position.y - this.dummyField[0].position.y
@@ -27,11 +18,13 @@ cc.Class({
             this.dummyField[2].position.x - this.dummyField[0].position.x,
             this.dummyField[2].position.y - this.dummyField[0].position.y
         );
-        this.initPos = new cc.Vec2(this.dummyField[0].position.x, this.dummyField[0].position.y );
-
+        //this.initPos = new cc.Vec2(this.dummyField[0].position.x, this.dummyField[0].position.y );
+        this.initPos = this.node.parent.convertToWorldSpace(this.node.position);//this.node.getPosition();//this.node.parent.convertToWorldSpace(this.node.position);
+        */
     },
-    start() {
+    onLoad() {
         this.init();
+        /*
         let SquareNum = 0;
         while (SquareNum * SquareNum < this.TestFieldNumber)
             SquareNum++;
@@ -48,6 +41,8 @@ cc.Class({
             }
             if (count >= this.TestFieldNumber) break;
         }
+        */
+        this.atlasPack = cc.loader.loadRes("spritesheet/UI_Icon_Crop", cc.SpriteAtlas);
     },
 
     // update (dt) {},

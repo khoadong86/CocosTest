@@ -1,14 +1,10 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
+var FIELD_STATUS = cc.Enum({
+    INIT: 0, 
+    PLANTED: 1, 
+})
 
-var UIMgr = require("UIMgr");
+var CropsIconMgr = require("CropsIconMgr");
+var CropsMgr = require("CropsMgr");
 
 cc.Class({
     extends: cc.Component,
@@ -16,14 +12,40 @@ cc.Class({
         FieldStatusSprite: { default:[], type: cc.SpriteFrame},
     },
 
-    // onLoad () {},
+    onLoad () {
+        this.sprite = this.getComponent(cc.Sprite);
+    },
 
     start () {
-        this.uiMgr = cc.find("Canvas").getComponent("UIMgr");
+        this.status = FIELD_STATUS.INIT;
     },
 
     showUICropOverlay() {
-        this.uiMgr.showCropUIOverlay();
+        if (this.status == FIELD_STATUS.INIT) {
+            CropsIconMgr.instance.showAtPosition(this.node.parent.convertToWorldSpace(this.node.position));//this.node.getPosition());
+        } 
+        else {
+            CropsIconMgr.instance.hide();
+        }
     },
-    // update (dt) {},
+
+    checkPlantCrop(cropPlantID) {
+        // check condition for plant crop 
+        if (this.status == FIELD_STATUS.INIT) {
+            this.callPlantCrop(cropPlantID);
+        }
+    },
+
+    callPlantCrop(cropPlantID) {
+        this.status = FIELD_STATUS.PLANTED;
+        //this.sprite.spriteFrame = this.FieldStatusSprite[FIELD_STATUS.PLANTED];
+        // create crop Ingame here 
+        CropsMgr.instance.createCrop(this, cropPlantID);
+    },
+
+    harvest() {
+        this.status = FIELD_STATUS.INIT;
+        //this.sprite.spriteFrame = this.FieldStatusSprite[FIELD_STATUS.INIT];
+    }
+
 });

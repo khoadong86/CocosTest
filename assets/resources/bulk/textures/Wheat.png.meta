@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "2d84fe68-bdb6-4852-a426-0ae1cb664d71",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "Wheat": {
+      "ver": "1.0.3",
+      "uuid": "7310d2fd-3874-436d-8a8f-d0c878e6ccde",
+      "rawTextureUuid": "2d84fe68-bdb6-4852-a426-0ae1cb664d71",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 128,
+      "height": 128,
+      "rawWidth": 128,
+      "rawHeight": 128,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

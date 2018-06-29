@@ -104,8 +104,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 283,
-      "height": 206
+      "width": 400,
+      "height": 375
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -132,10 +132,10 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "61b8ec35-7001-48a0-b973-4668057b2896"
+      "__uuid__": "f9dfc76d-4831-4424-b279-b337410646a3"
     },
     "_type": 0,
-    "_sizeMode": 1,
+    "_sizeMode": 0,
     "_fillType": 0,
     "_fillCenter": {
       "__type__": "cc.Vec2",

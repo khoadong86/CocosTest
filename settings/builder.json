@@ -3,7 +3,11 @@
   "appSecret": "",
   "encryptJs": true,
   "excludeScenes": [
-    "accff6a0-0ceb-4a07-a26a-b845978fc62d"
+    "accff6a0-0ceb-4a07-a26a-b845978fc62d",
+    "5e2b189a-cc5b-4d28-a1d0-a14ee3550528",
+    "090a8e9d-3a6d-4f07-8ade-ba457bd42c45",
+    "f93213e9-5a50-4bf0-aa9a-318dcb4ca818",
+    "eddc6626-5b0e-468d-b21f-546954818b1f"
   ],
   "fb-instant-games": {},
   "includeAnySDK": false,
@@ -27,10 +31,10 @@
     "REMOTE_SERVER_ROOT": "",
     "orientation": "portrait"
   },
-  "renderMode": "2",
+  "renderMode": "0",
   "startScene": "f8542800-7c7f-48d0-8696-053f700534a7",
   "title": "instant-games-example",
-  "webOrientation": "landscape",
+  "webOrientation": "portrait",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
     "appid": "wx6ac3f5090a6b99c5",

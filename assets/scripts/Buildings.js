@@ -1,5 +1,5 @@
 var Buildings = {
-    "house_1":{
+    /*"house_1":{
         "unlocked": false,
         "relocated": false,
         "relocated_pos": {
@@ -22,7 +22,7 @@ var Buildings = {
             x:0,
             y:0
         }
-    }
+    }*/
 }
 
 module.exports = Buildings;

@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "663aca17-c7bf-40af-9504-a02cd3359799",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "UI_Icon_Crop_SugarCane": {
+      "ver": "1.0.3",
+      "uuid": "f6210f12-e9b6-44be-90bd-aa39993e265d",
+      "rawTextureUuid": "663aca17-c7bf-40af-9504-a02cd3359799",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": -0.5,
+      "offsetY": 1,
+      "trimX": 0,
+      "trimY": 1,
+      "width": 75,
+      "height": 75,
+      "rawWidth": 76,
+      "rawHeight": 79,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
