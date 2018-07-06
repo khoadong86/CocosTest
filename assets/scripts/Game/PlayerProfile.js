@@ -17,6 +17,7 @@ var PlayerProfile = cc.Class({
         let mockupProfile = MockupData.getProfile();
         this.level = mockupProfile.level;
         this.xp = mockupProfile.xp;
+        this.energy = mockupProfile.energy;
         this.progresssing = mockupProfile.progresssing;
     },
 

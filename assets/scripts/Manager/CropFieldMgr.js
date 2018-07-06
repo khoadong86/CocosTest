@@ -1,49 +1,45 @@
+var CameraMgr = require("CameraMgr");
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        FieldPrefab: { default: null, type: cc.Prefab },
-        dummyField: { default: [], type: cc.Node },
-        TestFieldNumber: { default: 8 },
+        //testTouch: {default:null, type: cc.Node},
     },
 
-    // onLoad () {},
-    init() {
+    start() {
         /*
-        this.offsetDirectionR = new cc.Vec2(
-            this.dummyField[1].position.x - this.dummyField[0].position.x,
-            this.dummyField[1].position.y - this.dummyField[0].position.y
-        );
-        this.offsetDirectionD = new cc.Vec2(
-            this.dummyField[2].position.x - this.dummyField[0].position.x,
-            this.dummyField[2].position.y - this.dummyField[0].position.y
-        );
-        //this.initPos = new cc.Vec2(this.dummyField[0].position.x, this.dummyField[0].position.y );
-        this.initPos = this.node.parent.convertToWorldSpace(this.node.position);//this.node.getPosition();//this.node.parent.convertToWorldSpace(this.node.position);
-        */
-    },
-    onLoad() {
-        this.init();
-        /*
-        let SquareNum = 0;
-        while (SquareNum * SquareNum < this.TestFieldNumber)
-            SquareNum++;
-        let count = 0;
-        for (let i = 0; i < SquareNum; i++) {
-            for (let j = 0; j < SquareNum; j++) {
-                const newField = cc.instantiate(this.FieldPrefab);
-                let newPos = new cc.Vec2();
-                newPos = this.initPos.add(this.offsetDirectionR.mul(i)).add(this.offsetDirectionD.mul(j));
-                newField.setPosition(newPos.x, newPos.y);
-                newField.parent = this.node;
-                count++;
-                if (count >= this.TestFieldNumber) break;
-            }
-            if (count >= this.TestFieldNumber) break;
+        this.fieldColliders = [];
+        var childNodes = this.node._children;
+        for (let i = 0; i < childNodes.length; i++) {
+            this.fieldColliders[i] = childNodes[i].getComponent(cc.PolygonCollider);
         }
+        //this.node.on(cc.Node.EventType.TOUCH_START, this.dragStart, this);
+        //this.node.on(cc.Node.EventType.TOUCH_END, this.dragEnd, this);
+        //cc.director.getCollisionManager().enabledDebugDraw = true;
         */
-        this.atlasPack = cc.loader.loadRes("spritesheet/UI_Icon_Crop", cc.SpriteAtlas);
     },
+
+    dragStart(event) {
+        cc.director.getCollisionManager().enabled = true;
+        let touch = event._touches[0];
+        let point = this.node.convertTouchToNodeSpace(touch);
+        let offsetPos = CameraMgr.instance.getOffsetPosition();
+        point.addSelf(offsetPos);
+        let pos = this.node.convertToWorldSpace(point);
+        //this.testTouch.setPosition(point);
+        //pos.addSelf(offsetPos);
+        for (let i = 0; i < this.fieldColliders.length; i++) {
+            if (cc.Intersection.pointInPolygon(pos, this.fieldColliders[i].world.points)) {
+                console.log("touch in ");
+                this.fieldColliders[i].node.getComponent("CropField").showUICropIcon();
+            }
+        }
+    },
+
+    dragEnd(event) {
+        cc.director.getCollisionManager().enabled = true;
+    },
+
 
     // update (dt) {},
 });

@@ -4,6 +4,7 @@ var GameDefine = {
         GROWING : 1, 
         FINISHED : 2, 
     }),
+    NumQuests: 1,
 }
 
 module.exports = GameDefine;

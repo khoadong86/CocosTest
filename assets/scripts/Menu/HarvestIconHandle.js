@@ -5,9 +5,6 @@ cc.Class({
     extends: IconHandle,
 
     properties: {
-        propagate: {
-            default: false
-        },
     },
 
     onLoad() {

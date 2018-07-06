@@ -17,20 +17,16 @@ cc.Class({
         this.materials = materials;
 
         cc.loader.loadRes("bulk/textures/" + productId, function(err, data) {
-
             this.spriteFrame = new cc.SpriteFrame(data);
-            
         }.bind(this.display));
     },
 
     onLoad ()
     {
-
-        var self = this;
         this.catchedPos = this.node.position;
-        this.node.on("touchstart", this.onTouchStart.bind(self));
+        this.node.on("touchstart", this.onTouchStart, this);
         this.node.on("touchmove", this.onTouchMoved);
-        this.node.on("touchend", this.onTouchEnded.bind(self));
+        this.node.on("touchend", this.onTouchEnded, this);
     },
 
     onTouchStart(event)
@@ -43,7 +39,8 @@ cc.Class({
     onTouchMoved(event)
     {
         let currentPos = this.position;
-        this.setPosition(currentPos.x + event.getDelta().x, currentPos.y + event.getDelta().y)
+        this.setPosition(currentPos.x + event.getDelta().x / Define.Camera.Zoom.ratio, currentPos.y + event.getDelta().y / Define.Camera.Zoom.ratio);
+        event.stopPropagation();
         return true;
     },
 

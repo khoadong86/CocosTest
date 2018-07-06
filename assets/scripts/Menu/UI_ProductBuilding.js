@@ -8,29 +8,56 @@ cc.Class({
 
     onLoad()
     {
-        this.Products = this.ProductNode.children;
-        this.Slots = this.QueueNode.children;
+        this.Products = [];
+        this.Slots = [];
+        let id;
+        for(id in this.ProductNode.children) this.Products.push(this.ProductNode.children[id].getComponent("UI_ProductItem"));
+        for(id in this.QueueNode.children) this.Slots.push(this.QueueNode.children[id].getComponent("UI_ProductSlot"));
+
+        this.registerClickOnSlots();
+    },
+
+    registerClickOnSlots(){
+        for(let i in this.Slots) {
+            this.Slots[i].onClick = this.onSlotClicked.bind(this);
+        }
+    },
+
+    onSlotClicked(slot) {
+        if(this.caller) {
+            let id = this.Slots.indexOf(slot);
+            if(id != -1) {
+                if(this.caller.CanCollectItem(id))
+                    this.caller.CallCollectItem(id);
+            }
+        }
     },
 
     LoadBuildingInfo(caller)
     {
         this.caller = caller;
-        let count = 0;
-
         this.Products.forEach(element => {
-            element.active = false;
+            element.node.active = false;
         });
+        this.Refresh();
+    },
 
-        let capacity = this.caller.getComponent("Building").capacity;
+    Refresh(){
+        if(this.caller) {
+            let selectedBuilding = this.caller.getComponent("Building");
+            this.UpdateItems(selectedBuilding);
+            this.UpdateProgress(selectedBuilding.Slots);
+        }
+    },
+
+    UpdateItems(selectedBuilding){
+        let capacity = selectedBuilding.capacity;
         let items = Object.keys(capacity);
-
         for (var i=0; i<items.length; i++)
         {
-            this.Products[i].getComponent("UI_ProductItem").setDisplay(items[i],capacity[items[i]]);
-            this.Products[i].active = true;
+            this.Products[i].setDisplay(items[i],capacity[items[i]]);
+            this.Products[i].node.active = true;
         }
-
-        this.UpdateProgress(this.caller.getComponent("Building").Slots);
     },
 
     UpdateProgress(data)
@@ -39,19 +66,21 @@ cc.Class({
         {
             if (i < data.length)
             {
-                this.Slots[i].getComponent("UI_ProductSlot").setDisplay(data[i]);
+                this.Slots[i].setDisplay(data[i]);
             }
         }
     },
 
     Display(position)
     {
-        this.node.setPosition(position);
         this.node.active = true;
+        this.node.setPosition(position);
+        // cc.log(this, "Display at", position);
     },
 
     Hide()
     {
+        this.caller = null;
         this.node.active = false;
     },
 

@@ -3,6 +3,8 @@ var ObjectTypes = cc.Enum({
     PRODUCT_BUILDING: 1,
 });
 
+const MAX_DRAG_OFFSET = 5;
+
 cc.Class({
     extends: cc.Component,
 
@@ -20,7 +22,9 @@ cc.Class({
     {
         if (this.IsClickable)
         {
-            this.node.on("touchstart", this.onClick).bind(this);
+            this.node.on("touchstart", (event)=>{this.isClick=true;if(this.stopPropagation) event.stopPropagation();}, this);
+            this.node.on("touchmove", (event)=>{if(this.isClick) {this.isClick = event.touch.getDelta().mag() < MAX_DRAG_OFFSET;};if(this.stopPropagation) event.stopPropagation();}, this);
+            this.node.on("touchend", (event)=>{if(this.isClick){this.onClick();}this.isClick=false;if(this.stopPropagation) event.stopPropagation();}, this);
         }
     },
 

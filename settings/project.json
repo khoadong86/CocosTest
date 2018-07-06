@@ -37,7 +37,6 @@
   "excluded-modules": [
     "CCSpriteDistortion",
     "LabelOutline",
-    "TiledMap",
     "Spine Skeleton",
     "Toggle",
     "Slider",

@@ -1,7 +1,7 @@
 
 class TimeManager{
-    getNowTime() {
-        
+    getNowTimeStamp() {
+        return new Date().getTime();
     }
 }
 

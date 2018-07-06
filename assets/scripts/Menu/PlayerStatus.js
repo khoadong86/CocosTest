@@ -9,6 +9,6 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
     init(data) {
         this.playerName.string = data.name;
-        this.statusImage.spriteFrame = new cc.SpriteFrame(data.texture);
+        this.statusImage.spriteFrame = new cc.SpriteFrame(ImageCached.Get(data.playerID, data.photoUrl));
     }
 });

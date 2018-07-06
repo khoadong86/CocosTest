@@ -7,7 +7,7 @@
   "subMetas": {
     "UI_Icon_Crop_Wheat": {
       "ver": "1.0.3",
-      "uuid": "b3086b51-eb38-41b1-8c30-dd96f54cdcae",
+      "uuid": "375e3d42-e3c9-48e4-ae21-06de6076face",
       "rawTextureUuid": "eb4ad3f7-824e-4c8a-9ba5-4c27ee250082",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 74,
-      "height": 74,
-      "rawWidth": 74,
-      "rawHeight": 74,
+      "width": 50,
+      "height": 59,
+      "rawWidth": 50,
+      "rawHeight": 59,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,

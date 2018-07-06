@@ -13,7 +13,6 @@ cc.Class({
 
     show() {
         this.animator.play('notification-show');
-        cc.log("show");
     },
 
     hide() {

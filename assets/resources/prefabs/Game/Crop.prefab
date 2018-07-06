@@ -442,6 +442,9 @@
     },
     "display": {
       "__id__": 2
+    },
+    "harvestVFX": {
+      "__uuid__": "4caf10a1-4370-40ad-85c6-6f2f1816f994"
     }
   },
   {
@@ -455,13 +458,13 @@
     "tag": 0,
     "_offset": {
       "__type__": "cc.Vec2",
-      "x": 0,
-      "y": 0
+      "x": -0.6,
+      "y": 8.2
     },
     "_size": {
       "__type__": "cc.Size",
-      "width": 50,
-      "height": 50
+      "width": 20.9,
+      "height": 35.2
     }
   },
   {

@@ -2,6 +2,7 @@ var HarvestIconMgr = cc.Class({
     extends: cc.Component,
 
     properties: {
+        display:{default:null, type: cc.Node},
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -12,6 +13,16 @@ var HarvestIconMgr = cc.Class({
 
     onLoad () {
         HarvestIconMgr.instance = this;
+        this.node.on('drag_start', this.onIconDragStart, this);
+        this.node.on('drag_end', this.onIconDragEnd, this);
+    },
+
+    onIconDragStart(event) {
+        this.display.active = false;
+    }, 
+
+    onIconDragEnd(event) {
+        this.hide();
     },
 
     showAtPosition(pos) {

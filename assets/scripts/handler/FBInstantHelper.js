@@ -1,33 +1,48 @@
-cc.Class({
-    extends: cc.Component,
-
+var FBInstantHelper = cc.Class({
     ctor () {
         this.player = null;
         this.context = null;
         this.contextPlayers = {};
     },
 
-    init () {
+    init (callback) {
         var thiz = this;
 
-        if (typeof FBInstant === 'undefined') return;
+        if (typeof FBInstant === 'undefined') {
+            if(callback)
+                callback(false);
+            return;
+        }
 
         this.player = FBInstant.player;
 
         this.context = FBInstant.context;
 
+        if(this.context.getID() == null){
+            if(callback)
+                callback(true);
+                return;
+        }
+
         FBInstant.context.getPlayersAsync()
         .then(function(players) {
+            cc.log("Get players completed", players);
             players.forEach(function(player) {
                 thiz.contextPlayers[player.getID()] = player;
+                ImageCached.Add(player.getID(), player.getPhoto());
             });
+            if(callback)
+                callback(true);
         });
     },
     isReady () {
         return typeof FBInstant !== 'undefined';
     },
     getContextPlayer (playerId) {
-        return this.contextPlayers[playerId];
+        if(this.player && playerId == this.player.getID()) {
+            return this.player;
+        }
+        return this.contextPlayers[playerId] || {getID(){return playerId;}, getName(){return playerId;}, getPhoto(){ return "https://scontent.xx.fbcdn.net/v/t1.0-1/c15.0.50.50/p50x50/10354686_10150004552801856_220367501106153455_n.jpg?_nc_cat=0&oh=f82825558ea2782cb27963ac46bc0bad&oe=5BD93E2F";}};
     },
 
     onQuitGame () {
@@ -83,3 +98,5 @@ cc.Class({
         return canvas.toDataURL('image/png');
     }
 });
+
+module.exports = new FBInstantHelper();

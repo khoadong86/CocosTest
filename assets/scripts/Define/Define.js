@@ -1,5 +1,6 @@
 var Define = {
     CropsPrefabPath: "prefabs/Crops/",
+    GameNode: "MainGameContainer/Game",
     ObjectsPool:{
         "house_1":
         {
@@ -34,11 +35,12 @@ var Define = {
         {
             Speed: 0.001,
             Max: 1.6,
-            Min: 0.5
+            Min: 0.8,
+            ratio: 1,
         },
         Move:
         {
-            Speed: 1/1.7
+            Speed: 1,
         }
     },
     IsometricField:

@@ -1,0 +1,29 @@
+{
+  "__type__": "cc.AnimationClip",
+  "_name": "PB_Bread_Oven",
+  "_objFlags": 0,
+  "_rawFiles": null,
+  "_duration": 0.016666666666666666,
+  "sample": 60,
+  "speed": 0.2,
+  "wrapMode": "2",
+  "curveData": {
+    "comps": {
+      "cc.Sprite": {
+        "spriteFrame": [
+          {
+            "frame": 0,
+            "value": {
+              "__uuid__": "e9f3840f-4662-4161-a6ee-50d49d387975"
+            }
+          }
+        ]
+      }
+    },
+    "props": {
+      "position": []
+    },
+    "paths": {}
+  },
+  "events": []
+}

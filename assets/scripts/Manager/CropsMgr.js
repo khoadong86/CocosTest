@@ -27,19 +27,26 @@ var CropsMgr = cc.Class({
         this.databaseCrops = LocalDB["Crops"];
     },
 
-    createCrop(field, cropPlantID) {
+    getCropInfo(id) {
+        for (var item in this.databaseCrops) {
+            if (this.databaseCrops[item].ID == id) {
+                return this.databaseCrops[item];
+            }
+        };
+        Object.keys(this.databaseCrops).forEach( (item) => {
+        });
+    },
+
+    createCrop(field, cropPlantID, start_date) {
         let newCrop = cc.instantiate(this.Crop);
         newCrop.parent = field.node;
         let cropHandle = newCrop.getComponent("CropHandle");
         // set sprite for 3 state of Crop 
-        let cropsSprites = [];
-        for (let i = GameDefine.CROP_STATE.INIT; i <= GameDefine.CROP_STATE.FINISHED; i++) {
-            cropsSprites[i] = this.atlasPack.getSpriteFrame(this.databaseCrops[cropPlantID].IG_Frame + (i+1)); // frame CROP_ID_[1 -> 3]
-        }
         cropHandle.setFieldPlantOn(field);
-        //cropHandle.setCropSprite(cropsSprites);
-        cropHandle.setCropDisplay(this.databaseCrops[cropPlantID].IG_Frame);
-        cropHandle.setCropParam(this.databaseCrops[cropPlantID]["Production speed (Seconds )"]);
+        const cropData = this.getCropInfo(cropPlantID);
+        cropHandle.setCropDisplay(cropData["IG_Prefab"]);
+        cropHandle.setCropParam(cropData["Production speed (Seconds )"], start_date);
+        return cropHandle;
     }
     // update (dt) {},
 });

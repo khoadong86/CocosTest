@@ -1,12 +1,19 @@
 var GameObject = require("GameObject");
 var UIManager = require("UIManager");
+var OnlineMgr = require("OnlineMgr");
+
+var STATE = cc.Enum({
+    IDLE : 0,
+    ACTIVE : 1
+});
 
 cc.Class({
     extends: GameObject,
 
     properties: {
         idMenu: "",
-        Notification: cc.Node
+        Notification: cc.Node,
+        Animation: cc.Animation
     },
 
     onLoad()
@@ -15,6 +22,7 @@ cc.Class({
         this.LoadBuildingInfo();
         this.LoadCapacity();
         this.LoadProgress();
+        this.SetState(STATE.IDLE);
     },
 
     start()
@@ -22,10 +30,27 @@ cc.Class({
         cc.director.getScheduler().schedule(this.CheckCompleteProduct, this, 1, cc.REPEAT_FOREVER, 0, false);
     },
 
+    SetState(state)
+    {
+        if (this.State != state)
+        {
+            this.State = state;
+            switch(state)
+            {
+                case STATE.IDLE:
+                    this.Animation.pause();
+                break;
+                case STATE.ACTIVE:
+                    this.Animation.play();
+                break;
+            }
+        }
+    },
+
     onClick(event)
     {
-        this.getComponent("Building").CollectCompleteItem();
-        UIManager.instance.ShowBuildingMenu(this, this.getComponent("Building").idMenu, this.getParent().convertToWorldSpace(this.position));
+        let building = this.getComponent("Building");
+        UIManager.instance.ShowBuildingMenu(this, building.idMenu, (this.node.position));
     },
 
     LoadBuildingInfo()
@@ -56,10 +81,10 @@ cc.Class({
             let item = _data[items[i]];
             if (item["Production_Building"] == this.node.name)
             {
-                this.capacity[items[i]] = {};
-                this.capacity[items[i]].Ingredient_name = item.Ingredient_name;
-                this.capacity[items[i]].Production_time = item.Production_time;
-                this.capacity[items[i]].Output_amount = item.Output_amount;
+                this.capacity[item.ID] = {};
+                this.capacity[item.ID].Ingredient_name = item.Ingredient_name;
+                this.capacity[item.ID].Production_time = item.Production_time;
+                this.capacity[item.ID].Output_amount = item.Output_amount;
 
                 let requirements = {};
                 let keys = Object.keys(item);
@@ -73,7 +98,7 @@ cc.Class({
                         requirements[material] = quantity;
                     }
                 }
-                this.capacity[items[i]].requirements = requirements;
+                this.capacity[item.ID].requirements = requirements;
             }
         }
         console.log("finish");
@@ -96,19 +121,33 @@ cc.Class({
         {
             return false;
         }
-
-        for (let i=0; i<this.MaxSlot; i++)
+        let freeSlot = this.getFreeSlot();
+        if(freeSlot != -1)
         {
-            if (this.Slots[i].Status == "Free")
-            {
-                this.Slots[i].ProductId = productId;
-                this.Slots[i].Production_time = this.capacity[productId].Production_time;
-                this.Slots[i].StartTime = new Date().getTime();
-                this.Slots[i].Status = "Inprogress";
-                return true;
+            OnlineMgr.instance.send(['produce', this.node.name, productId, freeSlot]);
+        }
+        return true;
+    },
+
+    getFreeSlot(){
+        for (let i=0; i<this.MaxSlot; i++){
+            if(this.Slots[i].Status == "Free") {
+                return i;
             }
         }
-        return false;
+        return -1;
+    },
+
+    produceProduct(productId, value) {
+        if (this.Slots[value.slot].Status == "Free") {
+            this.Slots[value.slot].ProductId = productId;
+            this.Slots[value.slot].Production_time = value.duration;
+            this.Slots[value.slot].StartTime = value.start_date;
+            this.Slots[value.slot].Status = "Inprogress";
+            this.Slots[value.slot].Player = FBInstantHelper.getContextPlayer(value.player);
+            UIManager.instance.RefreshProductBuildingMenu();
+            this.SetState(STATE.ACTIVE);
+        }
     },
 
     CheckRequirement()
@@ -130,6 +169,8 @@ cc.Class({
     CheckCompleteProduct()
     {
         let currentTime = new Date().getTime();
+        let finishProduce = true;
+
         for (let i=0; i<this.MaxSlot; i++)
         {
             if (this.Slots[i].Status == "Inprogress")
@@ -140,20 +181,36 @@ cc.Class({
                     this.Notification.active = true;
                     return;
                 }
+                else
+                {
+                    finishProduce = false;
+                }
             }
+        }
+        if (finishProduce)
+        {
+            this.SetState(STATE.IDLE);
         }
     },
 
-    CollectCompleteItem()
+    CanCollectItem(slot) {
+        return (this.Slots[slot].Status == "Completed");
+    },
+
+    CallCollectItem(slot) {
+        this.Slots[slot].Status = "Requesting";
+        OnlineMgr.instance.send(['collect', this.node.name, slot])
+    },
+
+    CollectCompleteItem(slot)
     {
-        for (let i=0; i<this.MaxSlot; i++)
+        if (this.Slots[slot].Status == "Requesting")
         {
-            if (this.Slots[i].Status == "Completed")
-            {
-                this.Slots[i].Status = "Free";
-                //dnvuanh add code collect here
-            }
+            this.Slots[slot].Status = "Free";
+            UIManager.instance.RefreshProductBuildingMenu();
+
+            let completedSlot = this.Slots.filter(it => it.Status == "Completed");
+            this.Notification.active = completedSlot.length > 0;
         }
-        this.Notification.active = false;
     }
 });

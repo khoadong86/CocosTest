@@ -1,13 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 cc.Class({
     extends: cc.Component,
 
@@ -28,19 +18,22 @@ cc.Class({
     loadResources()
     {
         this.progressBar.progress = 0;
-        cc.loader.loadResDir('bulk', function (err, assets) {
-            if (err) {
-                cc.error(err);
-                return;
-            }
-            this.loadPrefabs();
-        }.bind(this));
+	// TODO: Should cached assets after loaded
+        // cc.loader.loadResDir('bulk', function (err, assets) {
+        //     if (err) {
+        //         cc.error(err);
+        //         return;
+        //     }
+        //     this.loadPrefabs();
+        // }.bind(this));
+        this.loadPrefabs();
     },
     
     loadPrefabs()
     {
         this.progressBar.progress = 0.5;
-        ObjectSpawner.InitPools(this.loadGameScene.bind(this));
+        // ObjectSpawner.InitPools(this.loadGameScene.bind(this)); // NOTE: Currently, Pool is not in used
+        FBInstantHelper.init(this.loadGameScene.bind(this));
     },
     
     loadGameScene()

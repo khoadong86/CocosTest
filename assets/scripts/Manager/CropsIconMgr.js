@@ -23,11 +23,26 @@ var CropsIconMgr = cc.Class({
                 this.init();
             }
         });
+        this.node.on('drag_start', this.onIconDragStart, this);
+        this.node.on('drag_end', this.onIconDragEnd, this);
+    },
 
+    onIconDragStart(event) {
+        let IconController = event.target;
+        IconController.parent = this.node;
+        this.display.active = false;
+    }, 
+
+    onIconDragEnd(event) {
+        this.display.active = true;
+        let IconController = event.target;
+        IconController.parent = this.display;
+        this.hide();
     },
 
     init() {
         this.dummyPos = [];
+        this.cropsIconHandle = [];
         let countItemCrop = 0;
         let cropDB = LocalDB["Crops"];
         Object.keys(cropDB).forEach( (item) => {
@@ -37,12 +52,22 @@ var CropsIconMgr = cc.Class({
             cropIconItem.getComponent(cc.Sprite).spriteFrame = this.atlasPack.getSpriteFrame(UIFrame);
             cropIconItem.parent = this.display;
             cropIconItem.setPosition(this.dummyPos[countItemCrop]);
-            cropIconItem.getComponent("CropIconHandle").init(item);
+            let cropIconHandle = { id: cropDB[item]["ID"], icon: cropIconItem.getComponent("CropIconHandle") };
+            cropIconHandle.icon.init(item, FarmProfile.instance.getItemQuantity(cropDB[item]["ID"]));
+            this.cropsIconHandle.push(cropIconHandle);
             countItemCrop++;
         });
     },
 
+    updateInfo() {
+        this.cropsIconHandle.forEach( (element) => {
+            const cropIDstring = element.id;
+            element.icon.init(cropIDstring, FarmProfile.instance.getItemQuantity(cropIDstring));
+        });
+    },
+
     showAtPosition(pos) {
+        this.updateInfo();
         this.node.active = true;
         this.node.setPosition(pos);
     },

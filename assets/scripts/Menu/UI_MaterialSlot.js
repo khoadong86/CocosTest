@@ -25,7 +25,24 @@ cc.Class({
             this.spriteFrame = new cc.SpriteFrame(data);
             
         }.bind(this.MaterialIcon));
-        this.AmountText.string = "0/" + amount; //dnvuanh hardcore
+        let currentAmount = FarmProfile.instance.profileData.inventory[name];
+
+        if (currentAmount && currentAmount > 0)
+            this.AmountText.string = currentAmount + "/" + amount;
+        else
+            this.AmountText.string = "0/" + amount;
+
+        if (currentAmount >= amount)
+        {
+            this.LayoutRed.active = false;
+            this.LayoutGreen.active = true;
+        }
+        else
+        {
+            this.LayoutRed.active = true;
+            this.LayoutGreen.active = false;
+        }
+
         this.node.active = true;
     }
 });

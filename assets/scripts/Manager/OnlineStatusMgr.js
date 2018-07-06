@@ -1,9 +1,11 @@
+const HIDE = 0;
+const SHOW = 1;
 let OnlineStatusMgr = cc.Class({
     extends: cc.Component,
 
     properties: {
         statusPrefab: cc.Prefab,
-        online: cc.Texture2D
+        ContentNode: cc.Node
     },
     statics: {
         instance: null
@@ -11,6 +13,8 @@ let OnlineStatusMgr = cc.Class({
     //==========================
     onLoad() {
         this.players = {};
+        this.animator = this.getComponent(cc.Animation);
+        this.currentState = HIDE;
         OnlineStatusMgr.instance = this;
     },
     //==========================
@@ -19,18 +23,26 @@ let OnlineStatusMgr = cc.Class({
         if(!this.players[playerID]) {
             let name = player.getName();
             let playerStatus = cc.instantiate(this.statusPrefab).getComponent("PlayerStatus");
-            playerStatus.init({name:name, texture:this.online});
+            playerStatus.init({name:name, photoUrl:player.getPhoto(), playerID: playerID});
             playerStatus.node.name = playerID;
-            this.node.addChild(playerStatus.node);
+            this.ContentNode.addChild(playerStatus.node);
             this.players[playerID] = playerStatus;
         }
     },
     removePlayer(player) {
         let playerID = player.getID();
         if(this.players[playerID]) {
-            let nodeName = this.players[playerID].node.name;
-            cc.find(nodeName, this.node).destroy();
+            this.players[playerID].node.destroy();
             this.players[playerID] = null;
+        }
+    },
+    onButtonPressed(){
+        if(this.currentState === HIDE) {
+            this.animator.play('show_right');
+            this.currentState = SHOW;
+        } else {
+            this.animator.play('hide_right');
+            this.currentState = HIDE;
         }
     }
 });

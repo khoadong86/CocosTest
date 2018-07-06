@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "92be0286-bd76-4140-a3d6-4f7ae321be73",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "Brown Sugar": {
+      "ver": "1.0.3",
+      "uuid": "cb09a2f0-f40d-4cc1-8ebc-fe501bee46db",
+      "rawTextureUuid": "92be0286-bd76-4140-a3d6-4f7ae321be73",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 194,
+      "height": 236,
+      "rawWidth": 194,
+      "rawHeight": 236,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

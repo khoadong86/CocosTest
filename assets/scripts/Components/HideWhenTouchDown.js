@@ -17,17 +17,9 @@ cc.Class({
 
     onLoad () {
         this.node.on(cc.Node.EventType.TOUCH_START, this.dragStart, this);
-        this.node.on(cc.Node.EventType.TOUCH_MOVE, this.dragMove, this);
-        this.node.on(cc.Node.EventType.TOUCH_END, this.dragEnd, this);
     },
 
     dragStart() {
         this.NodeToHide.active = false;
-    },
-
-    dragMove(event) {
-    },
-
-    dragEnd(event) {
     },
 });

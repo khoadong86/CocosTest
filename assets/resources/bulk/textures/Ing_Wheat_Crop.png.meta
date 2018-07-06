@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "7268fbaf-dceb-49fb-b2d4-b8b49d2dc407",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "Ing_Wheat_Crop": {
+      "ver": "1.0.3",
+      "uuid": "5717651b-b6da-4c84-96ce-e744b5410343",
+      "rawTextureUuid": "7268fbaf-dceb-49fb-b2d4-b8b49d2dc407",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 200,
+      "height": 237,
+      "rawWidth": 200,
+      "rawHeight": 237,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

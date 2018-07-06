@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "aad03ecc-e530-49b9-b161-699ef5e52d8d",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "PB_Soil_Plot": {
+      "ver": "1.0.3",
+      "uuid": "6e267bc9-c23a-408c-a361-a5c586f0cbb6",
+      "rawTextureUuid": "aad03ecc-e530-49b9-b161-699ef5e52d8d",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 128,
+      "height": 128,
+      "rawWidth": 128,
+      "rawHeight": 128,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}

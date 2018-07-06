@@ -1,51 +1,91 @@
+
 var FIELD_STATUS = cc.Enum({
-    INIT: 0, 
-    PLANTED: 1, 
+    INIT: 0,
+    REQUESTING: 1,
+    PLANTED: 2,
 })
 
+var OnlineMgr = require("OnlineMgr");
 var CropsIconMgr = require("CropsIconMgr");
 var CropsMgr = require("CropsMgr");
 
 cc.Class({
     extends: cc.Component,
     properties: {
-        FieldStatusSprite: { default:[], type: cc.SpriteFrame},
+        collider:{default:null, type: cc.PolygonCollider},
     },
 
-    onLoad () {
+    onLoad() {
         this.sprite = this.getComponent(cc.Sprite);
     },
 
-    start () {
+    start() {
         this.status = FIELD_STATUS.INIT;
+        this.previousStatus = this.status;
+        this.plantedId = 0;
+        this.cropPlantHandle = null;
     },
 
-    showUICropOverlay() {
+    showUICropIcon() {
         if (this.status == FIELD_STATUS.INIT) {
             CropsIconMgr.instance.showAtPosition(this.node.parent.convertToWorldSpace(this.node.position));//this.node.getPosition());
-        } 
+        }
         else {
             CropsIconMgr.instance.hide();
         }
     },
 
-    checkPlantCrop(cropPlantID) {
+    canPlantCrop(cropPlantID) {
         // check condition for plant crop 
-        if (this.status == FIELD_STATUS.INIT) {
-            this.callPlantCrop(cropPlantID);
-        }
+        return this.status == FIELD_STATUS.INIT && FarmProfile.instance.getItemQuantity(cropPlantID) > 0;
     },
 
     callPlantCrop(cropPlantID) {
-        this.status = FIELD_STATUS.PLANTED;
-        //this.sprite.spriteFrame = this.FieldStatusSprite[FIELD_STATUS.PLANTED];
+        this.plantedId = cropPlantID;
         // create crop Ingame here 
-        CropsMgr.instance.createCrop(this, cropPlantID);
+        this.setNextStatus(FIELD_STATUS.REQUESTING);
+        let names = this.node.name.split('-');
+        OnlineMgr.instance.send(['produce', names[0], this.plantedId, names[1]]);
+    },
+
+    plantCrop(cropPlantID) {
+        if (this.canPlantCrop(cropPlantID)) {
+            this.callPlantCrop(cropPlantID);
+            return true;
+        }
+        return false;
+    },
+
+    // sync online state 
+    syncCropPlanted(cropPlantID, start_date) {
+        this.setNextStatus(FIELD_STATUS.PLANTED);
+        this.plantedId = cropPlantID;
+        // create crop Ingame here 
+        this.cropPlantHandle = CropsMgr.instance.createCrop(this, cropPlantID, start_date);
+    },
+
+    syncCropFieldCollected() {
+        this.cropPlantHandle.syncCropCollect();
+    },
+
+    syncError() {
+        this.status = this.previousStatus;
     },
 
     harvest() {
-        this.status = FIELD_STATUS.INIT;
-        //this.sprite.spriteFrame = this.FieldStatusSprite[FIELD_STATUS.INIT];
-    }
+        if (this.status == FIELD_STATUS.PLANTED) {
+            this.setNextStatus(FIELD_STATUS.REQUESTING);
+            let names = this.node.name.split('-');
+            OnlineMgr.instance.send(['collect', names[0], names[1]]);
+        }
+    }, 
 
+    syncHarvest() {
+        this.setNextStatus(FIELD_STATUS.INIT);
+    },
+
+    setNextStatus(status) {
+        this.previousStatus = this.status;
+        this.status = status;
+    },
 });

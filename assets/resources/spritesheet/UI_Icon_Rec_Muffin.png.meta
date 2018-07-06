@@ -1,0 +1,30 @@
+{
+  "ver": "1.0.0",
+  "uuid": "93b7aa80-55d6-44c1-a5d0-630d309cad54",
+  "type": "sprite",
+  "wrapMode": "clamp",
+  "filterMode": "bilinear",
+  "subMetas": {
+    "UI_Icon_Rec_Muffin": {
+      "ver": "1.0.3",
+      "uuid": "1ecd1ff1-6265-4922-9799-eb07adf9e9b8",
+      "rawTextureUuid": "93b7aa80-55d6-44c1-a5d0-630d309cad54",
+      "trimType": "auto",
+      "trimThreshold": 1,
+      "rotated": false,
+      "offsetX": 0,
+      "offsetY": 0,
+      "trimX": 0,
+      "trimY": 0,
+      "width": 203,
+      "height": 199,
+      "rawWidth": 203,
+      "rawHeight": 199,
+      "borderTop": 0,
+      "borderBottom": 0,
+      "borderLeft": 0,
+      "borderRight": 0,
+      "subMetas": {}
+    }
+  }
+}
